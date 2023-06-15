@@ -17,7 +17,7 @@ public  class Funcionario {
     }
     public void status(){
         //fazer algumas condições para cada classe
-        System.out.printf("Nome: %s", this.getNomeFun());
+        System.out.printf("\nNome: %s", this.getNomeFun());
         System.out.printf("\nIdade: %s", this.getIdadeFun());
         System.out.printf("\nEmail: %s", this.getEmailFun());
         System.out.printf("\nTelefone: %s", this.getTelefoneFun());

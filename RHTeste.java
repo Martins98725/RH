@@ -4,10 +4,10 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 public class RHTeste {
-    static  Map<String, Funcionario> listaFuncionarios = new HashMap<>() ;
-    static Map<String, Dev> listaDev = new HashMap<>();
-    static  Map<String, Estagiario>listaEstagio = new HashMap<>();
-    static Map<String, Gerente> listaGerente = new HashMap<>();
+    static  Map<String, Funcionario> listaFuncionarios;
+    static Map<String, Dev> listaDev;
+    static  Map<String, Estagiario>listaEstagio;
+    static Map<String, Gerente> listaGerente;
     static Funcionario func;
     static Gerente gerente;
     static Dev dev ;
@@ -15,23 +15,28 @@ public class RHTeste {
     static  Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         String nome, cpf, tele, email, cargo, novoNome;
+        listaFuncionarios = new HashMap<>();
+        listaDev= new HashMap<>();
+        listaEstagio= new HashMap<>();
+        listaGerente = new HashMap<>();
 
-        gerente = new Gerente();
-        dev = new Dev();
-        estagiario = new Estagiario();
         func = new Funcionario();
 
         boolean rodando = true;
         while (rodando) {
 
-            Pattern patternNome = Pattern.compile("[a-zA-Z]{3,10}");
+            gerente = new Gerente();
+            dev = new Dev();
+            estagiario = new Estagiario();
+
+            Pattern patternNome = Pattern.compile("[a-zA-Z]{2,10}");
             Pattern patternCpf = Pattern.compile("\\d{11}");
-            Pattern patternTele = Pattern.compile("\\d{9,10}");
-            Pattern patternIdade = Pattern.compile("[0-9]{2}");
+            Pattern patternTele = Pattern.compile("\\d{11}");
+            Pattern patternIdade = Pattern.compile("[0-14]{2}");
             Pattern patternEmail = Pattern.compile("\\s");
 
 
-            System.out.println("Bem vindo ao RHC");
+            System.out.println("\n \uD83D\uDCBB Bem Vindo ao RHC \uD83D\uDCBB");
             System.out.println("""
                     [1] Cadastrar funcionario
                     [2] Listar funcionários 
@@ -42,7 +47,7 @@ public class RHTeste {
 
             switch (opcao) {
                 case "1" -> {
-                    System.out.println("Nome: ");
+                    System.out.println("\nNome: ");
                     nome = scanner.nextLine();
                     while (!patternNome.matcher(nome).matches()){
                         System.out.println("Nome inválido. Tente novamente");
@@ -60,7 +65,7 @@ public class RHTeste {
                         System.out.println("CPF inválido. Tente novamente");
                         cpf = scanner.nextLine();
                     }
-                    System.out.println("Telefone: ");
+                    System.out.println("Telefone com DDD: ");
                     tele = scanner.nextLine();
                     while (!patternTele.matcher(tele).matches()){
                         System.out.println("Telefone inválido. Tente novamente");
@@ -90,7 +95,7 @@ public class RHTeste {
                         listaFuncionarios.putAll(listaGerente);
                         func.status();
                     } else if (cargo.equalsIgnoreCase("estagiario")) {
-                        func.setSalario(10000);
+                        func.setSalario(1370);
                         estagiario.setNomeFun(func.getNomeFun());
                         estagiario.setIdadeFun(func.getIdadeFun());
                         estagiario.setCpfFun(func.getCpfFun());
@@ -136,16 +141,18 @@ public class RHTeste {
                 }
                 case "2" -> {
                     if (listaFuncionarios.size() == 0) {
-                        System.out.println("Sem funcioários. Cadastre um para realizar esta ação");
+                        System.out.println("Sem funcionários. Cadastre um para realizar esta ação");
                     } else {
                         Consumer<Funcionario> print = i -> System.out.println(
-                                "=============================" +
+                                "============\uD83D\uDD0E \uD83D\uDCDD============" +
                                         "\nFuncionáro: "
                                         + i.getNomeFun()
                                         + "\nCargo: " + i.getCargo()
                                         + "\nIdade: " + i.getIdadeFun()
                                         + "\nCPF: " + i.getCpfFun()
                                         + "\nSalario: " + i.getSalario());
+                        System.out.println("");
+                        System.out.println("============\uD83D\uDD0E \uD83D\uDCDD============");
                         System.out.println("Esses são todos os funcionários");
                         listaFuncionarios.entrySet().stream().map(Map.Entry::getValue).forEach(print);
                     }
@@ -156,46 +163,51 @@ public class RHTeste {
                     }
                     else {
                         Consumer<Funcionario>print = i -> System.out.println(
-                                "=============================" +
+                                "============\uD83D\uDD0E \uD83D\uDCDD============" +
                                         "\nFuncionáro: "
                                         + i.getNomeFun()
                                         + "\nCargo: " + i.getCargo()
                                         + "\nIdade: " + i.getIdadeFun()
                                         + "\nCPF: " + i.getCpfFun()
-                                        + "\nSalario: \n" + i.getSalario());
+                                        + "\nSalario: " + i.getSalario());
                         listaFuncionarios.entrySet().stream().map(Map.Entry::getValue).forEach(print);
-                        System.out.println("Digite o cpf so usuarios para a remoção");
+                        System.out.println("\nDigite o cpf do usuário para a remoção");
                         cpf = scanner.nextLine();
                         listaFuncionarios.remove(cpf);
-                        System.out.println("Funcionário removido com sucesso");
+                        System.out.println("\nFuncionário removido com sucesso ✅");
                     }
                 }
                 case "4" -> {
                     String novoTele, novoEmail;
                     if (listaFuncionarios.size() == 0){
-                        System.out.println("Sem funcioários. Cadastre um para realizar esta ação");
+                        System.out.println("Sem funcionários. Cadastre um para realizar esta ação");
                     }
                     else {
                         Consumer<Funcionario>print = i -> System.out.println(
-                                "=============================" +
+                                "============\uD83D\uDD0E \uD83D\uDCDD============" +
                                         "\nFuncionáro: "
                                         + i.getNomeFun()
                                         + "\nCargo: " + i.getCargo()
-                                        + "\nIdade: " + i.getIdadeFun());
+                                        + "\nIdade: " + i.getIdadeFun()
+                                        + "\nCpf: " + i.getCpfFun());
+                             System.out.println("");
+                             System.out.println("============\uD83D\uDD0E \uD83D\uDCDD============");
                              System.out.println("Esses são todos os funcionários");
                              listaFuncionarios.entrySet().stream().map(Map.Entry::getValue).forEach(print);
-                             System.out.println("Digite o cpf do funcionário para atualiza-lo");
+                             System.out.println("\n \uD83D\uDD0E Digite o cpf do funcionário para atualizá-lo:");
                             cpf = scanner.nextLine();
                             listaFuncionarios.get(cpf);
-                            System.out.println("O novo nome: ");
+                            System.out.println("\nO novo nome: ");
                             novoNome = scanner.nextLine();
-                            System.out.println("O novo telefone: ");
+                            System.out.println("O novo telefone com DDD: ");
                             novoTele = scanner.nextLine();
                             System.out.println("O novo email : ");
                             novoEmail = scanner.nextLine();
                             func.setNomeFun(novoNome);
                             func.setTelefoneFun(novoTele);
                             func.setEmailFun(novoEmail);
+
+                          System.out.println("Deseja atualizar o cargo?");
                           System.out.println("""
                            [1]sim
                            [2]não""");
@@ -210,32 +222,52 @@ public class RHTeste {
                                 gerente.setCargo(cargo);
                                 gerente.setIdadeFun(func.getIdadeFun());
                                 gerente.setCpfFun(func.getCpfFun());
+                                gerente.setSalario(func.getSalario());
                                 listaGerente.put(cpf, gerente);
                                 listaFuncionarios.putAll(listaGerente);
+                                System.out.println("\nInformações atualizadas com sucesso ✅");
                                 gerente.status();
                             } else if (cargo.equalsIgnoreCase("Desenvolvedor") || cargo.equalsIgnoreCase("Dev")) {
+                                System.out.println("Seu nível (junior, pleno, senior): ");
+                                String nivel = scanner.nextLine();
+                                if (nivel.equalsIgnoreCase("junior")){
+                                    func.setSalario(3500);
+                                    dev.setSalario(func.getSalario());
+                                    func.setSalario(dev.getSalario());
+                                } else if (nivel.equalsIgnoreCase("pleno")) {
+                                    func.setSalario(6500);
+                                    dev.setSalario(func.getSalario());
+                                    func.setSalario(dev.getSalario());
+                                } else if (nivel.equalsIgnoreCase("senior")){
+                                    func.setSalario(8500);
+                                    dev.setSalario(func.getSalario());
+                                    func.setSalario(dev.getSalario());
+                                }
                                 dev.setNomeFun(func.getNomeFun());
                                 dev.setTelefoneFun(func.getTelefoneFun());
                                 dev.setEmailFun(func.getEmailFun());
                                 dev.setCargo(cargo);
                                 dev.setIdadeFun(func.getIdadeFun());
                                 dev.setCpfFun(func.getCpfFun());
+                                dev.setSalario(func.getSalario());
                                 listaDev.put(cpf, dev);
                                 listaFuncionarios.putAll(listaDev);
+                                System.out.println("\nInformações atualizadas com sucesso ✅");
                                 dev.status();
                             }
                         }
                          else {
+                             System.out.println("\nInformações atualizadas com sucesso ✅");
                              func.status();
                          }
                     }
                 }
                 case "5" ->{
                     if (listaFuncionarios.size() == 0){
-                        System.out.println("Sem funcioários. Cadastre um para realizar esta ação");
+                        System.out.println("Sem funcionários. Cadastre um para realizar esta ação");
                     }
                     else {
-                        System.out.println("Digite o cpf so funcionário para pesquisa-lo: ");
+                        System.out.println("\uD83D\uDD0E Digite o cpf do funcionário para pesquisá-lo: ");
                         System.out.println("CPF: ");
                         cpf = scanner.nextLine();
                         func = listaFuncionarios.get(cpf);
