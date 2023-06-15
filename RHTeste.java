@@ -32,7 +32,7 @@ public class RHTeste {
             Pattern patternNome = Pattern.compile("[a-zA-Z]{2,10}");
             Pattern patternCpf = Pattern.compile("\\d{11}");
             Pattern patternTele = Pattern.compile("\\d{11}");
-            Pattern patternIdade = Pattern.compile("[0-14]{2}");
+            Pattern patternIdade = Pattern.compile("[0-9]{2}");
             Pattern patternEmail = Pattern.compile("\\s");
 
 
